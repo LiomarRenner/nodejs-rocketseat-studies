@@ -1,13 +1,13 @@
 import React from 'react';
-//import Page1 from './Page1';
-//import Page2 from './Page2';
+import {SafeAreaView} from 'react-native';
+import {createStackNavigator} from '@react-navigation/stack';
+import AlbumList from '../screens/AlbumList';
+import Header from '../screens/Header';
 
-import { createAppContainer, createStackNavigator } from 'react-navigation';
-
-const Routes = createAppContainer(
+const Routes = (
   createStackNavigator({
-    Home: Page1,
-    About: Page2,
+    Header: Header,
+    AlbumList: AlbumList,
   })
 );
 
