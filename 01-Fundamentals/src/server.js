@@ -47,10 +47,10 @@ const server = http.createServer((req, res) => {
 			name: 'John Doe',
 			email: 'johndoe@xample.com'
 		}) // Simulating user creation
-		return res.end('Create user!')
+		return res.writeHead(201).end('Create user!')
 	}
 
-	return res.end('Hello Dear!')
+	return res.writeHead(404).end('Not Found!')
 })
 
 server.listen(3333)
