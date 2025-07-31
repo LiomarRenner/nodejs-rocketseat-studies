@@ -5,8 +5,7 @@
 // allowing for efficient data processing without needing to hold the entire data in memory.
 
 // Duplex streams can read and write data, allowing for bidirectional communication.
-
-// process.stdin.pipe(process.stdout)
+// Transform streams are a type of duplex stream that can modify the data as it is read or written.
 
 import { Readable, Writable, Transform } from 'node:stream'
 
@@ -37,9 +36,6 @@ class InverseNumbersStream extends Transform {
 class MultiplyByTenStream extends Writable {
 	_write(chunk, encoding, callback) {
 		console.log(`Received chunk: ${chunk.toString() * 10}`)
-		// const number = parseInt(chunk.toString(), 10)
-		// const result = number * 10
-		// console.log(`Processed: ${number} * 10 = ${result}`)
 		callback() // Signal that the chunk has been processed
 	}
 }
