@@ -18,10 +18,10 @@ class OneToHundredStream extends Readable {
 		setTimeout(() => {
 			if (i > 100) {
 				this.push(null) // End the stream
+			} else {
+				const buf = Buffer.from(String(i))
+				this.push(buf) // Push data to the stream
 			}
-	
-			const buf = Buffer.from(String(i))
-			this.push(buf) // Push data to the stream
 		}, 300) // Simulating a delay for each chunk
 
 	}
