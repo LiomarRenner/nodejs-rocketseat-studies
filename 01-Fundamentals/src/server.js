@@ -1,4 +1,5 @@
 import http from 'node:http'
+import { json } from './middlewares/json.js'
 
 // GET => Search resource from the server
 // POST => Create resource on the server
@@ -36,21 +37,10 @@ const users = []
 const server = http.createServer(async (req, res) => {
 	const { method, url } = req
 
-	const buffers = []
-
-	for await (const chunk of req) {
-		buffers.push(chunk)
-	}
-
-	try {
-		req.body = JSON.parse(Buffer.concat(buffers).toString())
-	} catch (err) {
-		req.body = null // If parsing fails, set body to null
-	}
+	await json(req, res)
 
 	if (method === 'GET' && url === '/users')
 		return res
-			.setHeader('Content-Type', 'application/json')
 			.end(users.length > 0 ? JSON.stringify(users) : 'No users found!')
 
 	if (method === 'POST' && url === '/users') {
