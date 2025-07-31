@@ -8,7 +8,7 @@
 
 // process.stdin.pipe(process.stdout)
 
-import { Readable } from 'node:stream'
+import { Readable, Writable, Transform } from 'node:stream'
 
 class OneToHundredStream extends Readable {
 	index = 1
@@ -28,5 +28,22 @@ class OneToHundredStream extends Readable {
 	}
 }
 
-new OneToHundredStream().pipe(process.stdout) // Pipe the stream to stdout
-// This will print numbers from 1 to 100 to the console, each as a separate chunk.
+class InverseNumbersStream extends Transform {
+	_transform(chunk, encoding, callback) {
+		const transformed = Number(chunk.toString()) * -1
+		callback(null, Buffer.from(String(transformed)))
+	}
+}
+class MultiplyByTenStream extends Writable {
+	_write(chunk, encoding, callback) {
+		console.log(`Received chunk: ${chunk.toString() * 10}`)
+		// const number = parseInt(chunk.toString(), 10)
+		// const result = number * 10
+		// console.log(`Processed: ${number} * 10 = ${result}`)
+		callback() // Signal that the chunk has been processed
+	}
+}
+
+new OneToHundredStream()
+	.pipe(new InverseNumbersStream())
+	.pipe(new MultiplyByTenStream())
