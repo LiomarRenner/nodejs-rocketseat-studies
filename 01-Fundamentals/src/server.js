@@ -1,5 +1,38 @@
 import http from 'node:http'
 import { json } from './middlewares/json.js'
+import { Database } from './database.js'
+// Notes are added at the end of the file
+const database = new Database()
+
+const server = http.createServer(async (req, res) => {
+	const { method, url } = req
+
+	await json(req, res)
+
+	if (method === 'GET' && url === '/users') {
+		const users = database.select('users')
+		return res.end(JSON.stringify(users))
+	}
+
+	if (method === 'POST' && url === '/users') {
+		const { name, email } = req.body
+
+		const users = {
+			id: crypto.randomUUID(),
+			name,
+			email,
+		}
+
+		database.insert('users', users)
+		return res.writeHead(201).end('Create user!')
+	}
+
+	return res.writeHead(404).end('Not Found!')
+})
+
+server.listen(3333)
+
+// FUNDAMENTALS NOTES
 
 // GET => Search resource from the server
 // POST => Create resource on the server
@@ -31,30 +64,3 @@ import { json } from './middlewares/json.js'
 // POST /users => Create user
 
 // (Header) => Metadata about the request or response
-
-const users = []
-
-const server = http.createServer(async (req, res) => {
-	const { method, url } = req
-
-	await json(req, res)
-
-	if (method === 'GET' && url === '/users')
-		return res
-			.end(users.length > 0 ? JSON.stringify(users) : 'No users found!')
-
-	if (method === 'POST' && url === '/users') {
-		const { name, email } = req.body
-
-		users.push({
-			id: 1,
-			name,
-			email,
-		}) // Simulating user creation
-		return res.writeHead(201).end('Create user!')
-	}
-
-	return res.writeHead(404).end('Not Found!')
-})
-
-server.listen(3333)
