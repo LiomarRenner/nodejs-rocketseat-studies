@@ -34,4 +34,14 @@ export class Database {
 		this.#persist()
 		return data;
 	}
+
+	delete(table, id) {
+		const rowIndex = this.#database[table].findIndex(row => row.id === id)
+		if (rowIndex > -1) {
+			this.#database[table].splice(rowIndex, 1)
+			this.#persist()
+		}
+	}
 }
+
+// .splice removes elements from an array and can also add new elements in their place.
