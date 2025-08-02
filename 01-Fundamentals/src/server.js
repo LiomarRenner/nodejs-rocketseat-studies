@@ -53,3 +53,15 @@ server.listen(3333)
 // POST /users => Create user
 
 // (Header) => Metadata about the request or response
+
+// Query Parameters: Filters, Pagination, Sorting, Non-required
+// Route Parameters: Identifiers for specific resources, Required
+// Request Body: Data sent to the server, Typically in POST or PUT requests
+
+// Query parameters are used to filter or sort data in a request, 
+// often seen in URLs after a question mark (e.g., ?search=keyword).
+
+// Route parameters are dynamic segments in the URL that allow for 
+// variable data to be passed (e.g., /users/:id).
+
+// Request body is used to create or update resources.
