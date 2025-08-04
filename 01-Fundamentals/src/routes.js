@@ -27,6 +27,20 @@ export const routes = [
 			return res.writeHead(201).end('Create user!')
 		},
 	},
+		{
+		method: 'PUT',
+		path: buildRoutePath('/users/:id'),
+		handler: (req, res) => {
+			const { id } = req.params
+			const { name, email } = req.body
+
+			database.update('users', id, {
+				name,
+				email
+			})
+			return res.writeHead(204).end()
+		}
+	},
 	{
 		method: 'DELETE',
 		path: buildRoutePath('/users/:id'),
@@ -35,8 +49,6 @@ export const routes = [
 
 			database.delete('users', id)
 			return res.writeHead(204).end()
-			// No content to return after deletion
-			// So we just end the response
 		}
 	}
 ]
