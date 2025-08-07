@@ -48,7 +48,7 @@ export class Database {
 			this.#database[table][rowIndex] = { id, ...data }
 			this.#persist()
 		}
-	}	
+	}
 
 	delete(table, id) {
 		const rowIndex = this.#database[table].findIndex(row => row.id === id)

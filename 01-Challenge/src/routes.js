@@ -10,7 +10,7 @@ export const routes = [
 		path: buildRoutePath('/tasks'),
 		handler: (req, res) => {
 			const tasks = database.select('tasks')
-			return res.end(JSON.stringify('Create task!', tasks))
+			return res.end(JSON.stringify(tasks))
 		}
 	},
 	{
@@ -29,7 +29,7 @@ export const routes = [
 			}
 
 			database.insert('tasks', task)
-			return res.writeHead(201).end('Create task!')
+			return res.writeHead(201).end(JSON.stringify(task))
 		}
 	},
 	{
