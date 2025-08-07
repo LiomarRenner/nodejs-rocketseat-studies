@@ -10,7 +10,7 @@ export const routes = [
 		path: buildRoutePath('/tasks'),
 		handler: (req, res) => {
 			const tasks = database.select('tasks')
-			return res.end(JSON.stringify(tasks))
+			return res.end(JSON.stringify('Create task!', tasks))
 		}
 	},
 	{
@@ -29,7 +29,7 @@ export const routes = [
 			}
 
 			database.insert('tasks', task)
-			return res.writeHead(201).end()
+			return res.writeHead(201).end('Create task!')
 		}
 	},
 	{
@@ -44,7 +44,7 @@ export const routes = [
 				description,
 				updated_at: new Date(),
 			})
-			return res.writeHead(204).end()
+			return res.writeHead(204).end('Update task!')
 		}
 	},
 	{
@@ -53,7 +53,7 @@ export const routes = [
 		handler: (req, res) => {
 			const { id } = req.params
 			database.delete('tasks', id)
-			return res.writeHead(204).end()
+			return res.writeHead(204).end('Delete task!')
 		}
 	},
 	{
@@ -64,7 +64,7 @@ export const routes = [
 			database.update('tasks', id, {
 				completed_at: new Date(),
 			})
-			return res.writeHead(204).end()
+			return res.writeHead(204).end('Complete task!')
 		}
 	}
 ]
