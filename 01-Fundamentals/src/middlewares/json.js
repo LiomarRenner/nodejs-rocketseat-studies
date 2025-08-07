@@ -8,7 +8,7 @@ export async function json(req, res) {
 	try {
 		req.body = JSON.parse(Buffer.concat(buffers).toString())
 	} catch (err) {
-		req.body = null // If parsing fails, set body to null
+		req.body = null
 	}
 
 	res.setHeader('Content-Type', 'application/json')
