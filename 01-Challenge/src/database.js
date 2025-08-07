@@ -23,19 +23,23 @@ export class Database {
 		const data = this.#database[table] ?? []
 		return data
 	}
+
 	insert(table, data) {
 		if (Array.isArray(this.#database[table])) this.#database[table].push(data)
 		else this.#database[table] = [data]
 		this.#persist()
 		return data;
 	}
-	update(table, id) {
+
+	update(table, id, data) {
 		const rowIndex = this.#database[table].findIndex(row => row.id === id)
 		if (rowIndex > -1) {
-			this.#database[table][rowIndex] = { id, ...data }
+			const row = this.#database[table][rowIndex]
+			this.#database[table][rowIndex] = { id, ...row, ...data }
 			this.#persist()
 		}
 	}
+
 	delete(table, id) {
 		const rowIndex = this.#database[table].findIndex(row => row.id === id)
 		if (rowIndex > -1) {
