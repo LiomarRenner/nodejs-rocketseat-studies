@@ -4,11 +4,14 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "node --watch src/server.js",
+    "dev": "IMPORT_CSV=true node --watch src/server.js",
     "start": "npm run dev"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "csv-parse": "^6.1.0"
+  }
 }
