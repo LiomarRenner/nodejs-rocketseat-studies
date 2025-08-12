@@ -1,11 +1,11 @@
 import fastify from 'fastify';
-import { knex } from './database.js';
+import { dbKnex } from './database.js';
 
 const app = fastify()
 
 // GET, POST, PUT, DELETE, PATCH
 app.get('/hello', async () => {
-  const tables = await knex('sqlite_schema').select('*')
+  const tables = await dbKnex('sqlite_schema').select('*')
   return tables
 })
 
