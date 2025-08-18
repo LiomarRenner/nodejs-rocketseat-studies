@@ -1,31 +1,43 @@
 import type { FastifyInstance } from 'fastify';
 import { z } from 'zod';
 import { dbKnex } from '../database.js';
-// Cookies <-> Way to keep context between requests
+import { checkSessionIdExists } from '../middlewares/check-session-id-exists.js';
+
 export async function transactionsRoutes(app: FastifyInstance) {
-	app.get('/', async () => {
-		const transactions = await dbKnex('transactions').select('*');
-		return {
-			transactions,
-		};
+	app.get('/', { preHandler: [checkSessionIdExists ]}, async (request, reply) => {
+		const { sessionId } = request.cookies
+
+		const transactions = await dbKnex('transactions')
+			.where('session_id', sessionId)
+			.select('*');
+
+		return { transactions };
 	})
 
-	app.get('/:id', async (request) => {
+	app.get('/:id', { preHandler: [checkSessionIdExists ]}, async (request, reply) => {
 		const getTransactionParamsSchema = z.object({
 			id: z.uuid(),
 		});
 
 		const { id } = getTransactionParamsSchema.parse(request.params);
-
-		const transaction = await dbKnex('transactions').where('id', id).first();
+		const { sessionId }  = request.cookies
+		const transaction = await dbKnex('transactions')
+			.where({
+				id,
+				session_id: sessionId,
+			})
+			.first()
 
 		return {
 			transaction,
 		};
 	})
 
-	app.get('/summary', async () => {
+	app.get('/summary', { preHandler: [checkSessionIdExists ]}, async (request) => {
+		const { sessionId }  = request.cookies
+
 		const summary = await dbKnex('transactions')
+			.where('session_id', sessionId)
 			.sum('amount', { as: 'amount' })
 			.first();
 
@@ -43,10 +55,21 @@ export async function transactionsRoutes(app: FastifyInstance) {
 
 		const { title, amount, type } = createTransactionBodySchema.parse(request.body);
 
+		let sessionId = request.cookies.sessionId;
+
+		if (!sessionId) {
+			sessionId = crypto.randomUUID();
+			reply.setCookie('sessionId', sessionId, {
+				path: '/',
+				maxAge: 60 * 60 * 24 * 7, // 7 days
+			});
+		}
+
 		await dbKnex('transactions').insert({
 			id: crypto.randomUUID(),
 			title,
 			amount: type === 'credit' ? amount : -amount,
+			session_id: sessionId,
 		});
 
 		return reply.status(201).send();
