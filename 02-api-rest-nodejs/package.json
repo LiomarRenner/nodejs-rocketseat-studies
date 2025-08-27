@@ -7,7 +7,8 @@
     "dev": "tsx watch src/server.ts",
     "knex": "node --import tsx ./node_modules/knex/bin/cli.js",
     "start": "npm run dev",
-    "lint": "run eslint src --ext .ts --fix"
+    "lint": "run eslint src --ext .ts --fix",
+    "test": "run vitest"
   },
   "keywords": [],
   "author": "",
