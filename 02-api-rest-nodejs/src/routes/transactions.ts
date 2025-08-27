@@ -2,9 +2,9 @@ import type { FastifyInstance } from 'fastify';
 import { z } from 'zod';
 import { dbKnex } from '../database.js';
 import { checkSessionIdExists } from '../middlewares/check-session-id-exists.js';
-
+  
 export async function transactionsRoutes(app: FastifyInstance) {
-	app.get('/', { preHandler: [checkSessionIdExists ]}, async (request, reply) => {
+	app.get('/', { preHandler: [checkSessionIdExists ]}, async (request) => {
 		const { sessionId } = request.cookies
 
 		const transactions = await dbKnex('transactions')
@@ -14,7 +14,7 @@ export async function transactionsRoutes(app: FastifyInstance) {
 		return { transactions };
 	})
 
-	app.get('/:id', { preHandler: [checkSessionIdExists ]}, async (request, reply) => {
+	app.get('/:id', { preHandler: [checkSessionIdExists ]}, async (request) => {
 		const getTransactionParamsSchema = z.object({
 			id: z.uuid(),
 		});
