@@ -10,7 +10,7 @@ A repository for hands-on learning and challenges from the Rocketseat Node.js co
 
 - [Notion Challenge Link](https://efficient-sloth-d85.notion.site/Desafio-01-2d48608f47644519a408b438b52d913f)
 - **Topics:** HTTP, Streams, Middlewares, `csv-parse`
-- **Status:** _In progress_
+- **Status:** _Done_
 
 ---
 
