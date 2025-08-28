@@ -14,9 +14,9 @@ A repository for hands-on learning and challenges from the Rocketseat Node.js co
 
 ---
 
-### 02 – API REST, Fastify, Knex, Sqlite3, Typescript, Vitest, Supertest, Dotenv
+### 02 – Typescript, API REST, Fastify, Knex, Sqlite3, Vitest, Supertest, Dotenv, Tsup
 
-- **Topics:** API REST, Fastify, Knex, Sqlite3, Typescript, Vitest, Supertest, Dotenv
+- **Topics:** Typescript,, API REST, `fastify`, `knex`, `sqlite3`, `vitest`, `supertest`, `dotenv`, `tsup`
 - **Status:** _In progress_
 
 ---
