@@ -1,10 +1,12 @@
-# Functional Requisite
-[x] - User must create a new transaction
-[ ] - User must obtain a resume of his account
-[x] - User must be able to see all transactions that were created
-[x] - User must see a specific transaction
+# Rocketseat Node.js Course
 
-# Business Requisite
-[x] - The transaction can be from credit type which will increase the balance
-[ ] - The transaction can be from debit type which will decrease the balance
-[ ] - The user just can visualize his own transactions
+# Challenge 01
+# HTTP, Streams, Middlewares, csv-parse
+https://efficient-sloth-d85.notion.site/Desafio-01-2d48608f47644519a408b438b52d913f
+
+# Challenge 02
+# API REST, Fastify, Knex, Sqlite3, Typescript, Vitest, Supertest, Dotenv
+
+# Challenge 03
+
+# Challenge 04
