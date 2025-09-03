@@ -6,7 +6,6 @@ db/*.db
 
 # Environment variables
 .env
-.env.test
 
 # Build output
 dist
